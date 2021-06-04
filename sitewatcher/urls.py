@@ -59,7 +59,8 @@ URLS = (
   View("user", "/{}", r"^/([^/]+)/?$", [EXAMPLE_USER], type=ViewType.BASE),
   View("compare", "/compare/{}/", r"^/compare/([^/]+)/?$"),  # TODO
   View("commits", "/commits" ,r"^/commits/?"),
-  View("commit", "/commit/{}", r"^/commit/([0-9a-f]+)/?$", ["main"]),
+  View("commit", "/commit/{}", r"^/commit/([0-9a-f]+)/?$",
+       ["550e5b76bf6cbc7c80e27ba3b2e34a12b390179a"]),
   View("issuelist", "/issues", r"^/issues/?$"),
   View("issue", "/issues/{}", r"^/issues/(\d+)/?$", [1]),
   View("label", "/labels/{}", r"^/labels/(\w+)/?$"),  # TODO
@@ -103,6 +104,12 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = defaultdict(tuple, {
     "repo": (
         TS("last", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME"),
         TS("file", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/TIME-AGO", True),
+    ),
+    "commits": (
+        TS("commit", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/OL/LI/DIV/DIV/DIV/RELATIVE-TIME", True),
+    ),
+    "commit": (
+        TS("commit", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME"),
     ),
     "issue": (
         TS("opened", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME"),
