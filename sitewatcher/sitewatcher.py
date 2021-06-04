@@ -23,6 +23,10 @@ def watch_view(browser: WebDriver, view: View) -> None:
     url = view.example_url
     logger.debug("Loading %s ...", url)
     browser.get(url)
+    if browser.current_url != url:
+        logger.error("Failed to load %s. Got '%s'", view.name,
+                     browser.current_url)
+        return
     for tsp in timestamps:
         logger.debug("Searching %s ...", tsp.name)
         els: Sequence[WebElement] = browser.find_elements_by_xpath(tsp.xpath)
