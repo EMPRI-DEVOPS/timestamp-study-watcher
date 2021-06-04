@@ -101,9 +101,11 @@ class TS():
 TIMESTAMPS: Dict[str, Sequence[TS]] = defaultdict(tuple, {
     # pylint: disable=line-too-long
     "issue": (
+        TS("opened", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME"),
         TS("origpost", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME"),
         TS("comment", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME", True),
-        # action: assignments, closing, labels, milestones, ...
+        # action: assignments, closing, labels, milestones, commit references,
+        # (all tested)...
         TS("action", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME", True),
     ),
 })
