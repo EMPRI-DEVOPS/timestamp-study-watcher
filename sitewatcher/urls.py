@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 import enum
 import functools
 import re
-from typing import Any, Dict, List, Sequence
+from typing import Any, Dict, List, Sequence, Tuple
 
 
 GH = "https://github.com"
@@ -38,6 +38,10 @@ class View():
             EXAMPLE_REPO if self.type is ViewType.REPO else "",
             self.template.format(*self.example_params),
         )
+
+    @property
+    def timestamps(self) -> Sequence['TS']:
+        return TIMESTAMPS[self.name]
 
     @staticmethod
     def _urljoin(*parts: str) -> str:
@@ -85,7 +89,7 @@ URLS = (
 URL_MAP = {url.name: url for url in URLS}
 
 
-@dataclass
+@dataclass(frozen=True)
 class TS():
     """Timestamp type located by XPath"""
     name: str
@@ -155,3 +159,30 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = defaultdict(tuple, {
         TS("issue", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/FORM/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True),
     ),
 })
+
+
+def _assert_xpath_uniqueness() -> None:
+    duplicates: List[str] = []
+    for view in URLS:
+        duplicates.extend(_find_view_xpath_duplicates(view))
+    if duplicates:
+        raise ValueError(
+            "Found xpath duplicates\n"
+            "\n".join(duplicates)
+        )
+
+
+def _find_view_xpath_duplicates(view: View) -> List[str]:
+    seen: Dict[str, List[Tuple[str, str]]] = defaultdict(list)
+    for tsp in view.timestamps:
+        seen[tsp._xpath].append((view.name, tsp.name))
+    duplicates: List[str] = []
+    for xpath, occurances in seen.items():
+        if len(occurances) > 1:
+            where = ", ".join([f"{view}/{tsname}"
+                               for view, tsname in occurances])
+            duplicates.append(f"{xpath}: {where}")
+    return duplicates
+
+
+_assert_xpath_uniqueness()
