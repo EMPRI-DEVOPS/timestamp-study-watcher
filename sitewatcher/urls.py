@@ -84,7 +84,11 @@ URLS = (
   View("releaselist", "/releases", r"^/releases/?$"),
   View("release", "/releases/tag/{}", r"^/releases/tag/([^/]+)/?$", []),
   View("taglist", "/tags", r"^/tags/?$"),
-  View("tree", r"^/tree/"),  # TODO
+  View("treeroot", "/tree/{}", r"^/tree/([^/]+)/?$", ["main"]),
+  View("treesub", "/tree/{}/{}", r"^/tree/([^/]+)/(.+)$",
+       ["main", "sitewatcher"]),
+  View("blob", "/blob/{}/{}", r"^/blob/([^/]+)/(.+)$",
+       ["main", "sitewatcher/sitewatcher.py"]),
 )
 URL_MAP = {url.name: url for url in URLS}
 
@@ -109,6 +113,19 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = defaultdict(tuple, {
     "repo": (
         TS("last", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME"),
         TS("file", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/TIME-AGO", True),
+    ),
+    "tree": (
+        # same as 'repo' if we are in the root path '/tree/<ref>/'
+        TS("last_root", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME"),
+        TS("file_root", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/TIME-AGO", True),
+    ),
+    "treesub": (
+        # ... different if we are in a subdirectory
+        TS("last", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME"),
+        TS("file", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/TIME-AGO", True),
+    ),
+    "blob": (
+        TS("last", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/SPAN/RELATIVE-TIME"),
     ),
     "commits": (
         TS("commit", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/OL/LI/DIV/DIV/DIV/RELATIVE-TIME", True),
