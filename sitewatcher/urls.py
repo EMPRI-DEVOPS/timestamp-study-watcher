@@ -63,18 +63,19 @@ URLS = (
        ["550e5b76bf6cbc7c80e27ba3b2e34a12b390179a"]),
   View("issuelist", "/issues", r"^/issues/?$"),
   View("issue", "/issues/{}", r"^/issues/(\d+)/?$", [1]),
-  View("label", "/labels/{}", r"^/labels/(\w+)/?$"),  # TODO
-  View("milestonelist", "/milestonne", r"^/milestones/?$"),
-  View("milestonelistfilter", "/milestonne/{}",
-       r"^/milestones/([^/]+)/?$", []),  # TODO
-  View("milestone", "/milestonne/{}", r"^/milestone/(\d+)/?$", [2]),
+  View("labellist", "/labels", r"^/labels/?$"),
+  View("label", "/labels/{}", r"^/labels/(\w+)/?$", ["invalid"]),
+  View("milestonelist", "/milestone", r"^/milestones/?$"),
+  View("milestonelistfilter", "/milestone/{}",
+       r"^/milestones/([^/]+)/?$", ["Test"]),
+  View("milestone", "/milestone/{}", r"^/milestone/(\d+)/?$", [1]),
   View("pulllist", "/pulls", r"^/pulls/?$"),
-  View("pull", "/pull/{}", r"^/pull/(\d+)/?$", [1]),
-  View("pullcommits", "/pull/{}/commits/", r"^/pull/(\d+)/commits/?$"),
+  View("pull", "/pull/{}", r"^/pull/(\d+)/?$", [3]),
+  View("pullcommits", "/pull/{}/commits/", r"^/pull/(\d+)/commits/?$", [3]),
   View("pullcommit", "/pull/{}/commits/{}",
        r"^/pull/(\d+)/commits/([0-9a-f]+)/?$",
-       []),
-  View("pullchecks", "/pull/{}/checks", r"^/pull/(\d+)/checks/?$", [1]),
+       [3, "aaa7943bac1a5d458d1d0d6773075631b04c0e9b"]),
+  View("pullchecks", "/pull/{}/checks", r"^/pull/(\d+)/checks/?$", [3]),
   View("repo", "/", r"^/?$"),
   View("releaselist", "/releases", r"^/releases/?$"),
   View("release", "/releases/tag/{}", r"^/releases/tag/([^/]+)/?$", []),
@@ -121,5 +122,36 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = defaultdict(tuple, {
         # action: assignments, closing, labels, milestones, commit references,
         # (all tested)...
         TS("action", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME", True),
+    ),
+    "pulllist": (
+        TS("pr", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True),
+    ),
+    "pull": (
+        # same as for 'issue'
+        TS("opened", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME"),
+        TS("origpost", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME"),
+        TS("comment", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME", True),
+        # action: assignments, closing, labels, milestones, commit references,
+        # (all tested)...
+        TS("action", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME", True),
+    ),
+    "pullcommits": (
+        TS("commit", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/OL/LI/DIV/DIV/DIV/RELATIVE-TIME", True),
+    ),
+    "pullcommit": (
+        TS("commit", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME"),
+    ),
+    "labellist": (),  # no timestamps
+    "label": (
+        TS("issue", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True),
+    ),
+    "milestonelist": (
+        TS("lastupdate", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/UL/LI/DIV/DIV/SPAN/TIME-AGO", True),
+    ),
+    "milestonelistfilter": (
+        TS("issue", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True),
+    ),
+    "milestone": (
+        TS("issue", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/FORM/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True),
     ),
 })
