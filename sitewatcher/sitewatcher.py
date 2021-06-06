@@ -20,7 +20,7 @@ def watch_view(browser: WebDriver, view: View) -> None:
     timestamps = TIMESTAMPS[view.name]
     if not timestamps:
         return  # nothing to check
-    url = view.example_url
+    url = view.example_url()
     logger.debug("Loading %s ...", url)
     browser.get(url)
     if browser.current_url != url:

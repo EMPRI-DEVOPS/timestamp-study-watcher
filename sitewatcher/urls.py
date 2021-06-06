@@ -14,7 +14,7 @@ EXAMPLE_REPO = f"{EXAMPLE_USER}/timestamp-study-watcher"
 
 class ViewType(enum.Enum):
     """Type of GitHub site view."""
-    BASE = 1
+    BASE = 0
     REPO = 1
 
 
@@ -31,12 +31,14 @@ class View():
     def pattern(self) -> re.Pattern:
         return re.compile(self.regex)
 
-    @property
-    def example_url(self) -> str:
+    def example_url(self, suffix_only=False) -> str:
+        suffix = self.template.format(*self.example_params)
+        if suffix_only:
+            return suffix
         return self._urljoin(
             GH,
             EXAMPLE_REPO if self.type is ViewType.REPO else "",
-            self.template.format(*self.example_params),
+            suffix,
         )
 
     @property
@@ -61,7 +63,7 @@ class View():
 URLS = (
   View("root", "/", r"^/?$", type=ViewType.BASE),
   View("user", "/{}", r"^/([^/]+)/?$", [EXAMPLE_USER], type=ViewType.BASE),
-  View("compare", "/compare/{}/", r"^/compare/([^/]+)/?$"),  # TODO
+  View("compare", "/compare/{}", r"^/compare/([^/]+)/?$", ["main...testpull"]),
   View("commits", "/commits" ,r"^/commits/?"),
   View("commit", "/commit/{}", r"^/commit/([0-9a-f]+)/?$",
        ["550e5b76bf6cbc7c80e27ba3b2e34a12b390179a"]),
@@ -69,8 +71,8 @@ URLS = (
   View("issue", "/issues/{}", r"^/issues/(\d+)/?$", [1]),
   View("labellist", "/labels", r"^/labels/?$"),
   View("label", "/labels/{}", r"^/labels/(\w+)/?$", ["invalid"]),
-  View("milestonelist", "/milestone", r"^/milestones/?$"),
-  View("milestonelistfilter", "/milestone/{}",
+  View("milestonelist", "/milestones", r"^/milestones/?$"),
+  View("milestonelistfilter", "/milestones/{}",
        r"^/milestones/([^/]+)/?$", ["Test"]),
   View("milestone", "/milestone/{}", r"^/milestone/(\d+)/?$", [1]),
   View("pulllist", "/pulls", r"^/pulls/?$"),
@@ -82,7 +84,7 @@ URLS = (
   View("pullchecks", "/pull/{}/checks", r"^/pull/(\d+)/checks/?$", [3]),
   View("repo", "/", r"^/?$"),
   View("releaselist", "/releases", r"^/releases/?$"),
-  View("release", "/releases/tag/{}", r"^/releases/tag/([^/]+)/?$", []),
+  View("release", "/releases/tag/{}", r"^/releases/tag/([^/]+)/?$", ["test-tag"]),
   View("taglist", "/tags", r"^/tags/?$"),
   View("treeroot", "/tree/{}", r"^/tree/([^/]+)/?$", ["main"]),
   View("treesub", "/tree/{}/{}", r"^/tree/([^/]+)/(.+)$",
@@ -176,30 +178,3 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = defaultdict(tuple, {
         TS("issue", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/FORM/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True),
     ),
 })
-
-
-def _assert_xpath_uniqueness() -> None:
-    duplicates: List[str] = []
-    for view in URLS:
-        duplicates.extend(_find_view_xpath_duplicates(view))
-    if duplicates:
-        raise ValueError(
-            "Found xpath duplicates\n"
-            "\n".join(duplicates)
-        )
-
-
-def _find_view_xpath_duplicates(view: View) -> List[str]:
-    seen: Dict[str, List[Tuple[str, str]]] = defaultdict(list)
-    for tsp in view.timestamps:
-        seen[tsp._xpath].append((view.name, tsp.name))
-    duplicates: List[str] = []
-    for xpath, occurances in seen.items():
-        if len(occurances) > 1:
-            where = ", ".join([f"{view}/{tsname}"
-                               for view, tsname in occurances])
-            duplicates.append(f"{xpath}: {where}")
-    return duplicates
-
-
-_assert_xpath_uniqueness()
