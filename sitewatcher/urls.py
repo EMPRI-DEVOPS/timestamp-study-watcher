@@ -84,7 +84,8 @@ URLS = (
   View("pullchecks", "/pull/{}/checks", r"^/pull/(\d+)/checks/?$", [3]),
   View("repo", "/", r"^/?$"),
   View("releaselist", "/releases", r"^/releases/?$"),
-  View("release", "/releases/tag/{}", r"^/releases/tag/([^/]+)/?$", ["test-tag"]),
+  View("release", "/releases/tag/{}", r"^/releases/tag/([^/]+)/?$",
+       ["test-tag"]),
   View("taglist", "/tags", r"^/tags/?$"),
   View("treeroot", "/tree/{}", r"^/tree/([^/]+)/?$", ["main"]),
   View("treesub", "/tree/{}/{}", r"^/tree/([^/]+)/(.+)$",
@@ -110,13 +111,17 @@ class TS():
         return self._xpath
 
 
-TIMESTAMPS: Dict[str, Sequence[TS]] = defaultdict(tuple, {
+TIMESTAMPS: Dict[str, Sequence[TS]] = {
     # pylint: disable=line-too-long
+    "root": (),  # TODO need to be logged in to see dashboard
+    "user": (
+        TS("repolast", "BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/UL/LI/DIV/SPAN/RELATIVE-TIME", True),
+    ),
     "repo": (
         TS("last", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME"),
         TS("file", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/TIME-AGO", True),
     ),
-    "tree": (
+    "treeroot": (
         # same as 'repo' if we are in the root path '/tree/<ref>/'
         TS("last_root", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME"),
         TS("file_root", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/TIME-AGO", True),
@@ -164,6 +169,9 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = defaultdict(tuple, {
     "pullcommit": (
         TS("commit", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME"),
     ),
+    "pullchecks": (
+        #
+    ),
     "labellist": (),  # no timestamps
     "label": (
         TS("issue", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True),
@@ -177,4 +185,16 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = defaultdict(tuple, {
     "milestone": (
         TS("issue", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/FORM/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True),
     ),
-})
+    "taglist": (
+        TS("tag", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/RELATIVE-TIME", True),
+    ),
+    "releaselist": (
+        TS("", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True),
+    ),
+    "release": (
+        TS("tag", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/P/RELATIVE-TIME"),
+    ),
+    "compare": (
+        # apperently no commits here, not even for the listed commits
+    ),
+}

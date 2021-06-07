@@ -24,6 +24,14 @@ class XPathUniquenessTest(unittest.TestCase):
                     self.fail(msg=" ".join(occurances))
 
 
+class CompletenessTest(unittest.TestCase):
+    def test_completeness(self) -> None:
+        self.assertCountEqual(
+            urls.URL_MAP.keys(),
+            urls.TIMESTAMPS.keys()
+        )
+
+
 class PatternMatchTest(unittest.TestCase):
     """Check if the view patterns match the view examples."""
     def test_regex_match(self) -> None:
