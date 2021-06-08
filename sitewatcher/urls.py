@@ -170,7 +170,8 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
         TS("commit", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME"),
     ),
     "pullchecks": (
-        #
+        TS("commitdropdown", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/A/DIV/SPAN/RELATIVE-TIME", True),
+        TS("buildcompleted", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SECTION/DIV/DIV/DIV/SPAN/SPAN/RELATIVE-TIME"),
     ),
     "labellist": (),  # no timestamps
     "label": (
