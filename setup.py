@@ -21,7 +21,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'sitewatcher = sitewatcher.sitewatcher:main'
+            'sitewatcher = sitewatcher.watcher:main'
         ]
     },
 )
