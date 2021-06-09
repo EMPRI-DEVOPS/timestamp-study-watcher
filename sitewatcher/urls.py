@@ -97,6 +97,10 @@ URLS = (
        ["Another-page"]),
   View("wikipagerev", "/wiki/{}/{}", r"^/wiki/([^/]+)/([0-9a-f]+)/?$",
        ["Home", "cd27fb08b2fdff5995aada4f2adec8a260a30564"]),
+  View("workflowruns", "/actions", r"^/actions(/workflows/[^/]+)?/?$"),
+  View("workflowrun", "/actions/runs/{}", r"^/actions/runs/(\d+)/?$",
+       [917858452]),
+  View("jobrun", "/runs/{}", r"^/runs/(\d+)/?$", [2772535510]),
 )
 URL_MAP = {url.name: url for url in URLS}
 
@@ -212,5 +216,14 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
     ),
     "wikipagehistory": (
         TS("committed", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/FORM/DIV/UL/LI/DIV/DIV/RELATIVE-TIME", True),
+    ),
+    "workflowruns": (
+        TS("triggered", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/TIME-AGO", True),
+    ),
+    "workflowrun": (
+        TS("triggered", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/TIME-AGO"),
+    ),
+    "jobrun": (
+        TS("finished", "BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/SECTION/DIV/DIV/DIV/SPAN/SPAN/RELATIVE-TIME"),
     ),
 }
