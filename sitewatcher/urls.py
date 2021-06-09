@@ -1,10 +1,10 @@
+# pylint: disable=missing-function-docstring
 """GitHub View/URL classifier"""
-from collections import defaultdict
 from dataclasses import dataclass, field
 import enum
 import functools
 import re
-from typing import Any, Dict, List, Sequence, Tuple
+from typing import Any, Dict, List, Sequence
 
 
 GH = "https://github.com"
@@ -92,6 +92,11 @@ URLS = (
        ["main", "sitewatcher"]),
   View("blob", "/blob/{}/{}", r"^/blob/([^/]+)/(.+)$",
        ["main", "sitewatcher/sitewatcher.py"]),
+  View("wikipage", "/wiki/{}", r"^/wiki(/[^/]+)/?$", ["Another-page"]),
+  View("wikipagehistory", "/wiki/{}/_history", r"^/wiki/([^/]+)/_history$",
+       ["Another-page"]),
+  View("wikipagerev", "/wiki/{}/{}", r"^/wiki/([^/]+)/([0-9a-f]+)/?$",
+       ["Home", "cd27fb08b2fdff5995aada4f2adec8a260a30564"]),
 )
 URL_MAP = {url.name: url for url in URLS}
 
@@ -197,5 +202,15 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
     ),
     "compare": (
         # apperently no commits here, not even for the listed commits
+    ),
+    "wikipage": (
+        TS("created", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/RELATIVE-TIME"),
+    ),
+    "wikipagerev": (
+        # same as wikipage
+        TS("created", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/RELATIVE-TIME"),
+    ),
+    "wikipagehistory": (
+        TS("committed", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/FORM/DIV/UL/LI/DIV/DIV/RELATIVE-TIME", True),
     ),
 }
