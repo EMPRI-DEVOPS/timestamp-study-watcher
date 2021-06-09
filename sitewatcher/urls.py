@@ -91,7 +91,7 @@ URLS = (
   View("treesub", "/tree/{}/{}", r"^/tree/([^/]+)/(.+)$",
        ["main", "sitewatcher"]),
   View("blob", "/blob/{}/{}", r"^/blob/([^/]+)/(.+)$",
-       ["main", "sitewatcher/sitewatcher.py"]),
+       ["main", "sitewatcher/watcher.py"]),
   View("wikipage", "/wiki/{}", r"^/wiki(/[^/]+)/?$", ["Another-page"]),
   View("wikipagehistory", "/wiki/{}/_history", r"^/wiki/([^/]+)/_history$",
        ["Another-page"]),
