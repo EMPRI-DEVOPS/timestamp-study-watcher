@@ -80,12 +80,12 @@ URLS = (
   View("pullcommits", "/pull/{}/commits/", r"^/pull/(\d+)/commits/?$", [3]),
   View("pullcommit", "/pull/{}/commits/{}",
        r"^/pull/(\d+)/commits/([0-9a-f]+)/?$",
-       [3, "aaa7943bac1a5d458d1d0d6773075631b04c0e9b"]),
+       [3, "5604c7abee3d6813c02902700964b96ac8ac6c0e"]),
   View("pullchecks", "/pull/{}/checks", r"^/pull/(\d+)/checks/?$", [3]),
   View("repo", "/", r"^/?$"),
   View("releaselist", "/releases", r"^/releases/?$"),
   View("release", "/releases/tag/{}", r"^/releases/tag/([^/]+)/?$",
-       ["test-tag"]),
+       ["demo"]),
   View("taglist", "/tags", r"^/tags/?$"),
   View("treeroot", "/tree/{}", r"^/tree/([^/]+)/?$", ["main"]),
   View("treesub", "/tree/{}/{}", r"^/tree/([^/]+)/(.+)$",
@@ -164,13 +164,13 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
         TS("pr", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True),
     ),
     "pull": (
-        # same as for 'issue'
-        TS("opened", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME"),
-        TS("origpost", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME"),
-        TS("comment", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME", True),
+        # similar to 'issue'
+        # exceptions: no opened date, different paths for comment and action,
+        # origpost and commit are identical
+        TS("comment", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME", True),
         # PR action: assignments, closing, labels, milestones, commit references,
         # (all tested)...
-        TS("praction", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME", True),
+        TS("praction", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME", True),
     ),
     "pullcommits": (
         TS("commit", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/OL/LI/DIV/DIV/DIV/RELATIVE-TIME", True),
@@ -187,7 +187,10 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
         TS("issue", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True),
     ),
     "milestonelist": (
-        TS("lastupdate", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/UL/LI/DIV/DIV/SPAN/TIME-AGO", True),
+        # GH serves the lastupdate TS as a span, not a time-element,
+        # our extension turns it into a time-ago
+        #TS("lastupdate", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/UL/LI/DIV/DIV/SPAN/TIME-AGO", True),
+        TS("lastupdate", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/UL/LI/DIV/DIV/SPAN/SPAN", True),
     ),
     "milestonelistfilter": (
         TS("issue", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True),
@@ -224,6 +227,6 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
         TS("triggered", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/TIME-AGO"),
     ),
     "jobrun": (
-        TS("finished", "BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/SECTION/DIV/DIV/DIV/SPAN/SPAN/RELATIVE-TIME"),
+        TS("finished", "BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SECTION/DIV/DIV/DIV/SPAN/SPAN/RELATIVE-TIME"),
     ),
 }
