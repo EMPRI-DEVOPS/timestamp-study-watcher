@@ -45,6 +45,10 @@ class View():
     def timestamps(self) -> Sequence['TS']:
         return TIMESTAMPS[self.name]
 
+    @property
+    def timestamp_xpaths(self) -> Sequence[str]:
+        return [tsp._xpath for tsp in self.timestamps]
+
     @staticmethod
     def _urljoin(*parts: str) -> str:
         def _join(a: str, b: str) -> str:
@@ -154,6 +158,7 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
     ),
     "issue": (
         TS("opened", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME"),
+        TS("opened-stickyheader", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME"),
         TS("origpost", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME"),
         TS("comment", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME", True),
         # issue action: assignments, closing, labels, milestones, commit references,
@@ -167,7 +172,8 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
         # similar to 'issue'
         # exceptions: no opened date, different paths for comment and action,
         # origpost and commit are identical
-        TS("comment", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME", True),
+        TS("origpost", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME"),
+        TS("comment", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME", True),
         # PR action: assignments, closing, labels, milestones, commit references,
         # (all tested)...
         TS("praction", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME", True),
@@ -177,9 +183,11 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
     ),
     "pullcommit": (
         TS("commit", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME"),
+        TS("commitdropdown", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/DIV/A/DIV/SPAN/RELATIVE-TIME", True),
     ),
     "pullchecks": (
         TS("commitdropdown", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/A/DIV/SPAN/RELATIVE-TIME", True),
+        TS("commitdropdown-stickyheader", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/A/DIV/SPAN/RELATIVE-TIME", True),
         TS("buildcompleted", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SECTION/DIV/DIV/DIV/SPAN/SPAN/RELATIVE-TIME"),
     ),
     "labellist": (),  # no timestamps
@@ -202,7 +210,9 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
         TS("tag", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/RELATIVE-TIME", True),
     ),
     "releaselist": (
-        TS("", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True),
+        TS("release", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True),
+        # position of hidden date (legacy)
+        TS("release-legacy", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/RELATIVE-TIME", True),
     ),
     "release": (
         TS("tag", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/P/RELATIVE-TIME"),
@@ -222,6 +232,8 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
     ),
     "workflowruns": (
         TS("triggered", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/TIME-AGO", True),
+        # the view contains a second however hidden start timestamp (probably legacy)
+        TS("triggered-legacy", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/TIME-AGO", True),
     ),
     "workflowrun": (
         TS("triggered", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/TIME-AGO"),
