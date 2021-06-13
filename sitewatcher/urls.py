@@ -248,12 +248,10 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
         TS("projectupdated", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME", True),
     ),
     "project": (
-        TS("lastupdated", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/BUTTON/SPAN/RELATIVE-TIME"),
+        TS("lastupdated", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME"),
         TS("issue", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/BUTTON/SPAN/RELATIVE-TIME"),
         # Activity list is dynamically loaded when clicking on 'Menu'
         TS("activity", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/P/SPAN/RELATIVE-TIME", True,
            trigger=['//*[@id="repo-content-pjax-container"]/div[4]/div[1]/div[3]/div[3]/button']),
-        # unclear semantic:
-        TS("hidden-updated", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME"),
     ),
 }
