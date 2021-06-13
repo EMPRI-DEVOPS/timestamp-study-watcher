@@ -105,6 +105,8 @@ URLS = (
   View("workflowrun", "/actions/runs/{}", r"^/actions/runs/(\d+)/?$",
        [917858452]),
   View("jobrun", "/runs/{}", r"^/runs/(\d+)/?$", [2772535510]),
+  View("projectlist", "/projects", r"^/projects/?$"),
+  View("project", "/projects/{}", r"^/projects/(\d+)/?$", [2]),
 )
 URL_MAP = {url.name: url for url in URLS}
 
@@ -115,6 +117,7 @@ class TS():
     name: str
     _xpath: str
     multiple: bool = False
+    trigger: List[str] = field(default_factory=list)
 
     @property
     def xpath(self) -> str:
@@ -240,5 +243,17 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
     ),
     "jobrun": (
         TS("finished", "BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SECTION/DIV/DIV/DIV/SPAN/SPAN/RELATIVE-TIME"),
+    ),
+    "projectlist": (
+        TS("projectupdated", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME", True),
+    ),
+    "project": (
+        TS("lastupdated", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/BUTTON/SPAN/RELATIVE-TIME"),
+        TS("issue", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/BUTTON/SPAN/RELATIVE-TIME"),
+        # Activity list is dynamically loaded when clicking on 'Menu'
+        TS("activity", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/P/SPAN/RELATIVE-TIME", True,
+           trigger=['//*[@id="repo-content-pjax-container"]/div[4]/div[1]/div[3]/div[3]/button']),
+        # unclear semantic:
+        TS("hidden-updated", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME"),
     ),
 }

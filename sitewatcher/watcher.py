@@ -44,9 +44,9 @@ class SiteWatcherTest(unittest.TestCase):
             with self.subTest(view=name):
                 self.watch_view(view)
 
-    def wait_for_element(self, xpath: str, timeout=10):
+    def wait_for_element(self, xpath: str, timeout=10) -> WebElement:
         try:
-            WebDriverWait(self.browser, timeout).until(
+            return WebDriverWait(self.browser, timeout).until(
                 EC.presence_of_element_located((By.XPATH, xpath)),
             )
         except selex.TimeoutException:
@@ -67,6 +67,10 @@ class SiteWatcherTest(unittest.TestCase):
         for tsp in timestamps:
             logger.debug("Searching %s ...", tsp.name)
             with self.subTest(timestamp=tsp.name):
+                if tsp.trigger:
+                    for trig in tsp.trigger:
+                        trig_elem = self.wait_for_element(trig)
+                        trig_elem.click()
                 self.wait_for_element(tsp.xpath)
                 els: Sequence[WebElement] = self.browser.find_elements_by_xpath(tsp.xpath)
                 n_els = len(els)
