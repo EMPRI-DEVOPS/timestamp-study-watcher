@@ -26,6 +26,7 @@ class View():
     regex: str = ""
     example_params: List[Any] = field(default_factory=list)
     type: ViewType = ViewType.REPO
+    login: bool = False
 
     @property
     def pattern(self) -> re.Pattern:
@@ -65,7 +66,9 @@ class View():
 
 
 URLS = (
-  View("root", "/", r"^/?$", type=ViewType.BASE),
+  View("root", "/", r"^/?$", type=ViewType.BASE),  # dashboard if logged in
+  View("userissues", "/issues", r"^/issues/?$", type=ViewType.BASE, login=True),
+  View("userpulls", "/pulls", r"^/pulls/?$", type=ViewType.BASE, login=True),
   View("user", "/{}", r"^/([^/]+)/?$", [EXAMPLE_USER], type=ViewType.BASE),
   View("compare", "/compare/{}", r"^/compare/([^/]+)/?$", ["main...testpull"]),
   View("commits", "/commits" ,r"^/commits/?"),
@@ -118,6 +121,7 @@ class TS():
     _xpath: str
     multiple: bool = False
     trigger: List[str] = field(default_factory=list)
+    login: bool = False
 
     @property
     def xpath(self) -> str:
@@ -132,6 +136,12 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
     "root": (),  # TODO need to be logged in to see dashboard
     "user": (
         TS("repolast", "BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/UL/LI/DIV/SPAN/RELATIVE-TIME", True),
+    ),
+    "userissues": (
+        TS("issuechanged", "BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True, login=True),
+    ),
+    "userpulls": (
+        TS("pullchanged", "BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True, login=True),
     ),
     "repo": (
         TS("last", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME"),

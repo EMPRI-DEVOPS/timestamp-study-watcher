@@ -56,6 +56,10 @@ class SiteWatcherTest(unittest.TestCase):
         timestamps = TIMESTAMPS[view.name]
         if not timestamps:
             return  # nothing to check
+        if view.login:
+            # login not supported yet
+            logger.debug("Skipping views %s (login only)", view.name)
+            return
         url = view.example_url()
         logger.debug("Loading %s ...", url)
         self.browser.get(url)
@@ -65,6 +69,10 @@ class SiteWatcherTest(unittest.TestCase):
 
         # look for each timestamp based on its xpath
         for tsp in timestamps:
+            if tsp.login:
+                # login not supported yet
+                logger.debug("Skipping ts %s (login only)", tsp.name)
+                continue
             logger.debug("Searching %s ...", tsp.name)
             with self.subTest(timestamp=tsp.name):
                 if tsp.trigger:
