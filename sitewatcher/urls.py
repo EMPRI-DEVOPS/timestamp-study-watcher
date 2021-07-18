@@ -262,6 +262,6 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
         TS("issue", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/BUTTON/SPAN/RELATIVE-TIME"),
         # Activity list is dynamically loaded when clicking on 'Menu'
         TS("activity", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/P/SPAN/RELATIVE-TIME", True,
-           trigger=['//*[@id="repo-content-pjax-container"]/div[4]/div[1]/div[3]/div[3]/button']),
+           trigger=['/html/body/div[4]/div/main/div[2]/div/div[4]/div[1]/div[3]/div[3]/button']),
     ),
 }
