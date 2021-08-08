@@ -9,8 +9,9 @@ from typing import Any, Dict, List, Optional, Sequence
 
 
 GH = "https://github.com"
-EXAMPLE_USER = "EMPRI-DEVOPS"
-EXAMPLE_REPO = f"{EXAMPLE_USER}/timestamp-study-watcher"
+EXAMPLE_USER = "cburkert"
+EXAMPLE_ORG = "EMPRI-DEVOPS"
+EXAMPLE_REPO = f"{EXAMPLE_ORG}/timestamp-study-watcher"
 
 
 class ViewType(enum.Enum):
@@ -142,6 +143,10 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
     "user": (
         TS("repolast", "BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/UL/LI/DIV/SPAN/RELATIVE-TIME", True,
            until=date(2021, 8, 6)),  # disappeared from the repo list in overview
+        # ... but it is still shown on the repositories tab of user
+        # but for orgs it is not a tab but a separate url (see orgrepos)
+        TS("repolistrepolast", "BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/DIV/DIV/RELATIVE-TIME", True,
+           trigger=['/html/body/div[4]/main/div[1]/div/div/div[2]/div/nav/a[2]'])
     ),
     "userissues": (
         TS("issuechanged", "BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True, login=True),
