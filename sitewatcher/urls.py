@@ -1,10 +1,11 @@
 # pylint: disable=missing-function-docstring
 """GitHub View/URL classifier"""
 from dataclasses import dataclass, field
+from datetime import date
 import enum
 import functools
 import re
-from typing import Any, Dict, List, Sequence
+from typing import Any, Dict, List, Optional, Sequence
 
 
 GH = "https://github.com"
@@ -48,7 +49,7 @@ class View():
 
     @property
     def timestamp_xpaths(self) -> Sequence[str]:
-        return [tsp._xpath for tsp in self.timestamps]
+        return [tsp.xpath_rel for tsp in self.timestamps]
 
     @staticmethod
     def _urljoin(*parts: str) -> str:
@@ -118,24 +119,29 @@ URL_MAP = {url.name: url for url in URLS}
 class TS():
     """Timestamp type located by XPath"""
     name: str
-    _xpath: str
+    xpath_rel: str
     multiple: bool = False
     trigger: List[str] = field(default_factory=list)
     login: bool = False
+    until: Optional[date] = None
 
     @property
     def xpath(self) -> str:
         """A searchable XPath."""
-        if not self._xpath.startswith("/"):
-            return "//" + self._xpath
-        return self._xpath
+        if not self.xpath_rel.startswith("/"):
+            return "//" + self.xpath_rel
+        return self.xpath_rel
+
+    def is_active(self):
+        return self.until is None
 
 
 TIMESTAMPS: Dict[str, Sequence[TS]] = {
     # pylint: disable=line-too-long
     "root": (),  # TODO need to be logged in to see dashboard
     "user": (
-        TS("repolast", "BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/UL/LI/DIV/SPAN/RELATIVE-TIME", True),
+        TS("repolast", "BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/UL/LI/DIV/SPAN/RELATIVE-TIME", True,
+           until=date(2021, 8, 6)),  # disappeared from the repo list in overview
     ),
     "userissues": (
         TS("issuechanged", "BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True, login=True),

@@ -69,6 +69,9 @@ class SiteWatcherTest(unittest.TestCase):
 
         # look for each timestamp based on its xpath
         for tsp in timestamps:
+            if not tsp.is_active():
+                # skipping no longer active timestamps
+                continue
             if tsp.login:
                 # login not supported yet
                 logger.debug("Skipping ts %s (login only)", tsp.name)
@@ -95,8 +98,9 @@ class SiteWatcherTest(unittest.TestCase):
         found_xpaths = set(map(get_xpath, time_elements))
         expected = set(
             # only expect time-elements, no custom timestamps in spans
-            xpath for xpath in view.timestamp_xpaths
-            if xpath.endswith("/TIME-AGO") or xpath.endswith("/RELATIVE-TIME")
+            ts.xpath_rel for ts in view.timestamps
+            if (ts.is_active() and (ts.xpath.endswith("/TIME-AGO") or
+                                    ts.xpath.endswith("/RELATIVE-TIME")))
         )
         self.assertEqual(found_xpaths, expected,
                          msg="Expected timestamps do not match")
