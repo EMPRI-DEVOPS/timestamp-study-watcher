@@ -17,7 +17,7 @@ class XPathUniquenessTest(unittest.TestCase):
     def _find_view_xpath_duplicates(self, view: urls.View) -> None:
         seen: Dict[str, List[str]] = defaultdict(list)
         for tsp in view.timestamps:
-            seen[tsp._xpath].append(tsp.name)
+            seen[tsp.xpath_rel].append(tsp.name)
         for xpath, occurances in seen.items():
             with self.subTest(xpath=xpath):
                 if len(occurances) > 1:
