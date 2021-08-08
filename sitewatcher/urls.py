@@ -72,6 +72,8 @@ URLS = (
   View("userissues", "/issues", r"^/issues/?$", type=ViewType.BASE, login=True),
   View("userpulls", "/pulls", r"^/pulls/?$", type=ViewType.BASE, login=True),
   View("user", "/{}", r"^/([^/]+)/?$", [EXAMPLE_USER], type=ViewType.BASE),
+  View("orgrepos", "/orgs/{}/repositories", r"^/orgs/([^/]+)/repositories/?$",
+       [EXAMPLE_ORG], type=ViewType.BASE),
   View("compare", "/compare/{}", r"^/compare/([^/]+)/?$", ["main...testpull"]),
   View("commits", "/commits" ,r"^/commits/?"),
   View("commit", "/commit/{}", r"^/commit/([0-9a-f]+)/?$",
@@ -147,6 +149,9 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
         # but for orgs it is not a tab but a separate url (see orgrepos)
         TS("repolistrepolast", "BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/DIV/DIV/RELATIVE-TIME", True,
            trigger=['/html/body/div[4]/main/div[1]/div/div/div[2]/div/nav/a[2]'])
+    ),
+    "orgrepos": (
+        TS("repolast", "BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/DIV/DIV/SPAN/RELATIVE-TIME", True),
     ),
     "userissues": (
         TS("issuechanged", "BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True, login=True),
