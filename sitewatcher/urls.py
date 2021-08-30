@@ -127,13 +127,35 @@ class TS():
     trigger: List[str] = field(default_factory=list)
     login: bool = False
     until: Optional[date] = None
+    elem_variation: List[str] = field(default_factory=list)
 
     @property
     def xpath(self) -> str:
         """A searchable XPath."""
-        if not self.xpath_rel.startswith("/"):
-            return "//" + self.xpath_rel
-        return self.xpath_rel
+        return self._get_searchable_xpath(self.xpath_rel)
+
+    @staticmethod
+    def _get_searchable_xpath(path: str) -> str:
+        if not path.startswith("/"):
+            return "//" + path
+        return path
+
+    def alt_xpaths(self) -> List[str]:
+        return list(map(self._get_searchable_xpath,
+                        self.alt_xpaths_rel()))
+
+    def alt_xpaths_rel(self) -> List[str]:
+        return [
+            self._replace_elem(self.xpath_rel, alt)
+            for alt in self.elem_variation
+        ]
+
+    def all_xpaths_rel(self) -> List[str]:
+        return [self.xpath_rel] + self.alt_xpaths_rel()
+
+    @staticmethod
+    def _replace_elem(xpath: str, elem: str) -> str:
+        return "/".join(xpath.split("/")[:-1] + [elem])
 
     def is_active(self):
         return self.until is None
@@ -205,7 +227,11 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
         TS("comment", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME", True),
         # PR action: assignments, closing, labels, milestones, commit references,
         # (all tested)...
-        TS("praction", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME", True),
+        TS("praction",
+           "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME",
+           True, elem_variation=["TIME-AGO"]),
+        # sometimes praction are returned with a time-ago element (A-B testing?)
+        # BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/TIME-AGO
     ),
     "pullcommits": (
         TS("commit", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/OL/LI/DIV/DIV/DIV/RELATIVE-TIME", True),

@@ -1,4 +1,5 @@
 """Watches and alerts about missing elements on webpages"""
+import itertools
 import logging
 import os
 from typing import Sequence
@@ -85,6 +86,12 @@ class SiteWatcherTest(unittest.TestCase):
                 self.wait_for_element(tsp.xpath)
                 els: Sequence[WebElement] = self.browser.find_elements_by_xpath(tsp.xpath)
                 n_els = len(els)
+                if n_els == 0 and (alt_xpaths := tsp.alt_xpaths()):
+                    for alt_xpath in alt_xpaths:
+                        els = self.browser.find_elements_by_xpath(alt_xpath)
+                        n_els = len(els)
+                        if n_els > 0:
+                            break  # found an alt match
                 self.assertGreater(n_els, 0, "Timestamp not found")
                 if not tsp.multiple:
                     self.assertEqual(n_els, 1, "Multiple timestamps found")
@@ -96,14 +103,16 @@ class SiteWatcherTest(unittest.TestCase):
             "time-ago, relative-time"
         )
         found_xpaths = set(map(get_xpath, time_elements))
-        expected = set(
+        def filter_timeelements(path: str) -> bool:
+            return path.endswith("/TIME-AGO") or path.endswith("/RELATIVE-TIME")
+        expected = set(filter(filter_timeelements,
+                              itertools.chain.from_iterable(
             # only expect time-elements, no custom timestamps in spans
-            ts.xpath_rel for ts in view.timestamps
-            if (ts.is_active() and (ts.xpath.endswith("/TIME-AGO") or
-                                    ts.xpath.endswith("/RELATIVE-TIME")))
-        )
-        self.assertEqual(found_xpaths, expected,
-                         msg="Expected timestamps do not match")
+            ts.all_xpaths_rel() for ts in view.timestamps
+            if ts.is_active()
+        )))
+        for found in found_xpaths:
+            self.assertIn(found, expected, msg="Unexpected timestamps")
 
 
 def get_xpath(elem: WebElement, top="body") -> str:
