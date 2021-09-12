@@ -91,7 +91,7 @@ URLS = (
   View("pullcommits", "/pull/{}/commits/", r"^/pull/(\d+)/commits/?$", [3]),
   View("pullcommit", "/pull/{}/commits/{}",
        r"^/pull/(\d+)/commits/([0-9a-f]+)/?$",
-       [3, "5604c7abee3d6813c02902700964b96ac8ac6c0e"]),
+       [3, "68534b440024f4f919da7f6a3f6709a836779fa6"]),
   View("pullchecks", "/pull/{}/checks", r"^/pull/(\d+)/checks/?$", [3]),
   View("repo", "/", r"^/?$"),
   View("releaselist", "/releases", r"^/releases/?$"),
@@ -111,7 +111,7 @@ URLS = (
   View("workflowruns", "/actions", r"^/actions(/workflows/[^/]+)?/?$"),
   View("workflowrun", "/actions/runs/{}", r"^/actions/runs/(\d+)/?$",
        [917858452]),
-  View("jobrun", "/runs/{}", r"^/runs/(\d+)/?$", [2772535510]),
+  View("jobrun", "/runs/{}", r"^/runs/(\d+)/?$", [3586294909]),
   View("projectlist", "/projects", r"^/projects/?$"),
   View("project", "/projects/{}", r"^/projects/(\d+)/?$", [2]),
 )
