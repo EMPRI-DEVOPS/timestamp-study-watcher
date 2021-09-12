@@ -232,6 +232,10 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
            True, elem_variation=["TIME-AGO"]),
         # sometimes praction are returned with a time-ago element (A-B testing?)
         # BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/TIME-AGO
+        TS("practionpush",
+           "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME",
+           #"BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/TIME-AGO",
+           True, elem_variation=["TIME-AGO"]),  # ... this one as well
     ),
     "pullcommits": (
         TS("commit", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/OL/LI/DIV/DIV/DIV/RELATIVE-TIME", True),
