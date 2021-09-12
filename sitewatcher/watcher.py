@@ -45,13 +45,14 @@ class SiteWatcherTest(unittest.TestCase):
             with self.subTest(view=name):
                 self.watch_view(view)
 
-    def wait_for_element(self, xpath: str, timeout=10) -> WebElement:
+    def wait_for_element(self, xpath: str, timeout=10, panic=True) -> WebElement:
         try:
             return WebDriverWait(self.browser, timeout).until(
                 EC.presence_of_element_located((By.XPATH, xpath)),
             )
         except selex.TimeoutException:
-            self.fail("Timeout waiting for timestamp to appear")
+            if panic:
+                self.fail("Timeout waiting for timestamp to appear")
 
     def watch_view(self, view: View) -> None:
         timestamps = TIMESTAMPS[view.name]
@@ -83,11 +84,12 @@ class SiteWatcherTest(unittest.TestCase):
                     for trig in tsp.trigger:
                         trig_elem = self.wait_for_element(trig)
                         trig_elem.click()
-                self.wait_for_element(tsp.xpath)
+                self.wait_for_element(tsp.xpath, panic=False)
                 els: Sequence[WebElement] = self.browser.find_elements_by_xpath(tsp.xpath)
                 n_els = len(els)
                 if n_els == 0 and (alt_xpaths := tsp.alt_xpaths()):
                     for alt_xpath in alt_xpaths:
+                        self.wait_for_element(alt_xpath, panic=False)
                         els = self.browser.find_elements_by_xpath(alt_xpath)
                         n_els = len(els)
                         if n_els > 0:
