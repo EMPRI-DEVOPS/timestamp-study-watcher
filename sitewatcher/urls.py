@@ -5,7 +5,11 @@ from datetime import date
 import enum
 import functools
 import re
-from typing import Any, Dict, List, Optional, Sequence
+from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
+
+from selenium.webdriver.chrome.webdriver import WebDriver
+
+from . import utils
 
 
 GH = "https://github.com"
@@ -125,6 +129,7 @@ class TS():
     xpath_rel: str
     multiple: bool = False
     trigger: List[str] = field(default_factory=list)
+    prepare: Optional[Callable[[WebDriver], None]] = None
     login: bool = False
     until: Optional[date] = None
     elem_variation: List[str] = field(default_factory=list)
@@ -245,8 +250,11 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
         TS("commitdropdown", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/DIV/A/DIV/SPAN/RELATIVE-TIME", True),
     ),
     "pullchecks": (
-        TS("commitdropdown", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/A/DIV/SPAN/RELATIVE-TIME", True),
-        TS("commitdropdown-stickyheader", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/A/DIV/SPAN/RELATIVE-TIME", True),
+        TS("commitdropdown", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/A/DIV/SPAN/RELATIVE-TIME", True,
+           trigger=["/html/body/div[4]/div/main/div[2]/div/div/div[4]/div[1]/div[1]/div/div/details"]),
+        TS("commitdropdown-stickyheader", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/A/DIV/SPAN/RELATIVE-TIME", True,
+           trigger=["/html/body/div[4]/div/main/div[2]/div/div/div[4]/div[1]/div[2]/div[2]/div/div/div/div[2]/div/details"],
+           prepare=utils.shrink_and_scroll_down),
         TS("buildcompleted", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SECTION/DIV/DIV/DIV/SPAN/SPAN/RELATIVE-TIME"),
     ),
     "labellist": (),  # no timestamps
