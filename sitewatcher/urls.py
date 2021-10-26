@@ -133,6 +133,7 @@ class TS():
     login: bool = False
     until: Optional[date] = None
     elem_variation: List[str] = field(default_factory=list)
+    previous: List[Tuple[str, date]] = field(default_factory=list)
 
     @property
     def xpath(self) -> str:
@@ -274,15 +275,26 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
         TS("issue", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/FORM/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True),
     ),
     "taglist": (
-        TS("tag", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/RELATIVE-TIME", True),
+        TS("tag", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/RELATIVE-TIME", True,
+           previous=[
+               ("BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/RELATIVE-TIME", date(2021, 10, 26)),
+           ]),
     ),
     "releaselist": (
-        TS("release", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", True),
+        TS("release", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME", True,
+           previous=[
+               ("BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", date(2021, 10, 26)),
+           ]),
         # position of hidden date (legacy)
-        TS("release-legacy", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/RELATIVE-TIME", True),
+        TS("release-legacy", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/RELATIVE-TIME", True,
+           until=date(2021, 10, 26)),
     ),
     "release": (
-        TS("tag", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/P/RELATIVE-TIME"),
+        TS("tag", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME",
+           previous=[
+               ("BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/P/RELATIVE-TIME", date(2021, 10, 26)),
+           ],
+        ),
     ),
     "compare": (
         # apperently no commits here, not even for the listed commits
