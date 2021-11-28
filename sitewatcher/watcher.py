@@ -107,11 +107,15 @@ class SiteWatcherTest(unittest.TestCase):
 
         # look for unexpected, uncatalogued timestamps
         time_elements = self.browser.find_elements_by_css_selector(
-            "time-ago, relative-time"
+            "time-ago, relative-time, local-time"
         )
         found_xpaths = set(map(get_xpath, time_elements))
         def filter_timeelements(path: str) -> bool:
-            return path.endswith("/TIME-AGO") or path.endswith("/RELATIVE-TIME")
+            return any((
+                path.endswith("/TIME-AGO"),
+                path.endswith("/RELATIVE-TIME"),
+                path.endswith("/LOCAL-TIME"),
+            ))
         expected = set(filter(filter_timeelements,
                               itertools.chain.from_iterable(
             # only expect time-elements, no custom timestamps in spans
