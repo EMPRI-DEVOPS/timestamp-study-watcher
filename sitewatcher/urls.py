@@ -281,8 +281,9 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
            ]),
     ),
     "releaselist": (
-        TS("release", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME", True,
+        TS("release", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/LOCAL-TIME", True,
            previous=[
+               ("BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME", date(2021, 11, 28)),
                ("BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME", date(2021, 10, 26)),
            ]),
         # position of hidden date (legacy)
@@ -290,8 +291,9 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
            until=date(2021, 10, 26)),
     ),
     "release": (
-        TS("tag", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME",
+        TS("tag", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/LOCAL-TIME",
            previous=[
+               ("BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME", date(2021, 11, 28)),
                ("BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/P/RELATIVE-TIME", date(2021, 10, 26)),
            ],
         ),
