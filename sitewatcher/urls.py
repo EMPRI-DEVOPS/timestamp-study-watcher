@@ -329,7 +329,10 @@ TIMESTAMPS: Dict[str, Sequence[TS]] = {
         TS("finished", "BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SECTION/DIV/DIV/DIV/SPAN/SPAN/RELATIVE-TIME"),
     ),
     "projectlist": (
-        TS("projectupdated", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME", True),
+        TS("projectupdated", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME", True,
+           previous=[
+               ("BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME", date(2021, 12, 16)),
+           ]),
     ),
     "project": (
         TS("lastupdated", "BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME"),
