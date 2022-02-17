@@ -90,12 +90,13 @@ class SiteWatcherTest(unittest.TestCase):
                         trig_elem = self.wait_for_element(trig, clickable=True)
                         trig_elem.click()
                 self.wait_for_element(tsp.xpath, panic=False)
-                els: Sequence[WebElement] = self.browser.find_elements_by_xpath(tsp.xpath)
+                els: Sequence[WebElement] = self.browser.find_elements(
+                    By.XPATH, tsp.xpath)
                 n_els = len(els)
                 if n_els == 0 and (alt_xpaths := tsp.alt_xpaths()):
                     for alt_xpath in alt_xpaths:
                         self.wait_for_element(alt_xpath, panic=False)
-                        els = self.browser.find_elements_by_xpath(alt_xpath)
+                        els = self.browser.find_elements(By.XPATH, alt_xpath)
                         n_els = len(els)
                         if n_els > 0:
                             break  # found an alt match
@@ -106,7 +107,8 @@ class SiteWatcherTest(unittest.TestCase):
                          tsp.name, view.name, len(els))
 
         # look for unexpected, uncatalogued timestamps
-        time_elements = self.browser.find_elements_by_css_selector(
+        time_elements = self.browser.find_elements(
+            By.CSS_SELECTOR,
             "time-ago, relative-time, local-time"
         )
         found_xpaths = set(map(get_xpath, time_elements))
