@@ -1,0 +1,848 @@
+- !VIEW
+  example_params: []
+  login: false
+  name: root
+  regex: ^/?$
+  template: /
+  timestamps: []
+  type: &id001 !VIEWTYPE 'base'
+- !VIEW
+  example_params: []
+  login: true
+  name: userissues
+  regex: ^/issues/?$
+  template: /issues
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: true
+    multiple: true
+    name: issuechanged
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
+  type: *id001
+- !VIEW
+  example_params: []
+  login: true
+  name: userpulls
+  regex: ^/pulls/?$
+  template: /pulls
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: true
+    multiple: true
+    name: pullchanged
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
+  type: *id001
+- !VIEW
+  example_params:
+  - cburkert
+  login: false
+  name: user
+  regex: ^/([^/]+)/?$
+  template: /{}
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: repolast
+    prepare: null
+    previous: []
+    trigger: []
+    until: 2021-08-06
+    xpath_rel: BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/UL/LI/DIV/SPAN/RELATIVE-TIME
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: repolistrepolast
+    prepare: null
+    previous: []
+    trigger:
+    - /html/body/div[4]/main/div[1]/div/div/div[2]/div/nav/a[2]
+    until: null
+    xpath_rel: BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/DIV/DIV/RELATIVE-TIME
+  type: *id001
+- !VIEW
+  example_params:
+  - EMPRI-DEVOPS
+  login: false
+  name: orgrepos
+  regex: ^/orgs/([^/]+)/repositories/?$
+  template: /orgs/{}/repositories
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: repolast
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/DIV/DIV/SPAN/RELATIVE-TIME
+  type: *id001
+- !VIEW
+  example_params:
+  - main...testpull
+  login: false
+  name: compare
+  regex: ^/compare/([^/]+)/?$
+  template: /compare/{}
+  timestamps: []
+  type: &id002 !VIEWTYPE 'repo'
+- !VIEW
+  example_params: []
+  login: false
+  name: commits
+  regex: ^/commits/?
+  template: /commits
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: commit
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/OL/LI/DIV/DIV/DIV/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params:
+  - 550e5b76bf6cbc7c80e27ba3b2e34a12b390179a
+  login: false
+  name: commit
+  regex: ^/commit/([0-9a-f]+)/?$
+  template: /commit/{}
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: false
+    name: commit
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params: []
+  login: false
+  name: issuelist
+  regex: ^/issues/?$
+  template: /issues
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: issue
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params:
+  - 1
+  login: false
+  name: issue
+  regex: ^/issues/(\d+)/?$
+  template: /issues/{}
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: false
+    name: opened
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: false
+    name: opened-stickyheader
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: false
+    name: origpost
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: comment
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: issueaction
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params: []
+  login: false
+  name: labellist
+  regex: ^/labels/?$
+  template: /labels
+  timestamps: []
+  type: *id002
+- !VIEW
+  example_params:
+  - invalid
+  login: false
+  name: label
+  regex: ^/labels/(\w+)/?$
+  template: /labels/{}
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: issue
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params: []
+  login: false
+  name: milestonelist
+  regex: ^/milestones/?$
+  template: /milestones
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: lastupdate
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/UL/LI/DIV/DIV/SPAN/SPAN
+  type: *id002
+- !VIEW
+  example_params:
+  - Test
+  login: false
+  name: milestonelistfilter
+  regex: ^/milestones/([^/]+)/?$
+  template: /milestones/{}
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: issue
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params:
+  - 1
+  login: false
+  name: milestone
+  regex: ^/milestone/(\d+)/?$
+  template: /milestone/{}
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: issue
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/FORM/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params: []
+  login: false
+  name: pulllist
+  regex: ^/pulls/?$
+  template: /pulls
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: pr
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params:
+  - 3
+  login: false
+  name: pull
+  regex: ^/pull/(\d+)/?$
+  template: /pull/{}
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: false
+    name: origpost
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: comment
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME
+  - !TS
+    elem_variation:
+    - TIME-AGO
+    login: false
+    multiple: true
+    name: praction
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME
+  - !TS
+    elem_variation:
+    - TIME-AGO
+    login: false
+    multiple: true
+    name: practionpush
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params:
+  - 3
+  login: false
+  name: pullcommits
+  regex: ^/pull/(\d+)/commits/?$
+  template: /pull/{}/commits/
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: commit
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/OL/LI/DIV/DIV/DIV/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params:
+  - 3
+  - 68534b440024f4f919da7f6a3f6709a836779fa6
+  login: false
+  name: pullcommit
+  regex: ^/pull/(\d+)/commits/([0-9a-f]+)/?$
+  template: /pull/{}/commits/{}
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: false
+    name: commit
+    prepare: null
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIFF-FILE-FILTER/DIV/DIV/DIV/RELATIVE-TIME
+      - 2022-02-17
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME
+      - 2022-01-17
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIFF-FILE-FILTER/DIFF-LAYOUT/DIV/DIV/DIV/RELATIVE-TIME
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: commitdropdown
+    prepare: null
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIFF-FILE-FILTER/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/DIV/A/DIV/SPAN/RELATIVE-TIME
+      - 2022-02-17
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/DIV/A/DIV/SPAN/RELATIVE-TIME
+      - 2022-01-17
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIFF-FILE-FILTER/DIFF-LAYOUT/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/DIV/A/DIV/SPAN/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params:
+  - 3
+  login: false
+  name: pullchecks
+  regex: ^/pull/(\d+)/checks/?$
+  template: /pull/{}/checks
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: commitdropdown
+    prepare: null
+    previous: []
+    trigger:
+    - /html/body/div[4]/div/main/div[2]/div/div/div[4]/div[1]/div[1]/div/div/details
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/A/DIV/SPAN/RELATIVE-TIME
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: commitdropdown-stickyheader
+    prepare: !!python/name:sitewatcher.utils.shrink_and_scroll_down ''
+    previous: []
+    trigger:
+    - /html/body/div[4]/div/main/div[2]/div/div/div[4]/div[1]/div[2]/div[2]/div/div/div/div[2]/div/details
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/A/DIV/SPAN/RELATIVE-TIME
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: false
+    name: buildcompleted
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SECTION/DIV/DIV/DIV/SPAN/SPAN/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params: []
+  login: false
+  name: repo
+  regex: ^/?$
+  template: /
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: false
+    name: last
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: file
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/TIME-AGO
+  type: *id002
+- !VIEW
+  example_params: []
+  login: false
+  name: releaselist
+  regex: ^/releases/?$
+  template: /releases
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: release
+    prepare: null
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME
+      - 2021-11-28
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
+      - 2021-10-26
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/LOCAL-TIME
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: release-legacy
+    prepare: null
+    previous: []
+    trigger: []
+    until: 2021-10-26
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params:
+  - demo
+  login: false
+  name: release
+  regex: ^/releases/tag/([^/]+)/?$
+  template: /releases/tag/{}
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: false
+    name: tag
+    prepare: null
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME
+      - 2021-11-28
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/P/RELATIVE-TIME
+      - 2021-10-26
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/LOCAL-TIME
+  type: *id002
+- !VIEW
+  example_params: []
+  login: false
+  name: taglist
+  regex: ^/tags/?$
+  template: /tags
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: tag
+    prepare: null
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/RELATIVE-TIME
+      - 2021-10-26
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params:
+  - main
+  login: false
+  name: treeroot
+  regex: ^/tree/([^/]+)/?$
+  template: /tree/{}
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: false
+    name: last_root
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: file_root
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/TIME-AGO
+  type: *id002
+- !VIEW
+  example_params:
+  - main
+  - sitewatcher
+  login: false
+  name: treesub
+  regex: ^/tree/([^/]+)/(.+)$
+  template: /tree/{}/{}
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: false
+    name: last
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: file
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/TIME-AGO
+  type: *id002
+- !VIEW
+  example_params:
+  - main
+  - sitewatcher/watcher.py
+  login: false
+  name: blob
+  regex: ^/blob/([^/]+)/(.+)$
+  template: /blob/{}/{}
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: false
+    name: last
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/SPAN/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params:
+  - Another-page
+  login: false
+  name: wikipage
+  regex: ^/wiki(/[^/]+)/?$
+  template: /wiki/{}
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: false
+    name: created
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params:
+  - Another-page
+  login: false
+  name: wikipagehistory
+  regex: ^/wiki/([^/]+)/_history$
+  template: /wiki/{}/_history
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: committed
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/FORM/DIV/UL/LI/DIV/DIV/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params:
+  - Home
+  - cd27fb08b2fdff5995aada4f2adec8a260a30564
+  login: false
+  name: wikipagerev
+  regex: ^/wiki/([^/]+)/([0-9a-f]+)/?$
+  template: /wiki/{}/{}
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: false
+    name: created
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params: []
+  login: false
+  name: workflowruns
+  regex: ^/actions(/workflows/[^/]+)?/?$
+  template: /actions
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: triggered
+    prepare: null
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/TIME-AGO
+      - 2021-10-29
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/TIME-AGO
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: triggered-legacy
+    prepare: null
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/TIME-AGO
+      - 2021-10-29
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/TIME-AGO
+  type: *id002
+- !VIEW
+  example_params:
+  - 917858452
+  login: false
+  name: workflowrun
+  regex: ^/actions/runs/(\d+)/?$
+  template: /actions/runs/{}
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: false
+    name: triggered
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/TIME-AGO
+  type: *id002
+- !VIEW
+  example_params:
+  - 3586294909
+  login: false
+  name: jobrun
+  regex: ^/runs/(\d+)/?$
+  template: /runs/{}
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: false
+    name: finished
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SECTION/DIV/DIV/DIV/SPAN/SPAN/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params: []
+  login: false
+  name: projectlist
+  regex: ^/projects/?$
+  template: /projects
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: projectupdated
+    prepare: null
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME
+      - 2021-12-16
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME
+  type: *id002
+- !VIEW
+  example_params:
+  - 2
+  login: false
+  name: project
+  regex: ^/projects/(\d+)/?$
+  template: /projects/{}
+  timestamps:
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: false
+    name: lastupdated
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: false
+    name: issue
+    prepare: null
+    previous: []
+    trigger: []
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/BUTTON/SPAN/RELATIVE-TIME
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: activity
+    prepare: null
+    previous: []
+    trigger:
+    - /html/body/div[4]/div/main/div[2]/div/div[4]/div[1]/div[3]/div[3]/button
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/P/SPAN/RELATIVE-TIME
+  type: *id002

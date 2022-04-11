@@ -5,15 +5,17 @@ import os
 from typing import Sequence
 import unittest
 
-from selenium import webdriver
-from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.remote.webelement import WebElement
-import selenium.common.exceptions as selex
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from pkg_resources import resource_stream  # type: ignore
+from selenium import webdriver  # type: ignore
+from selenium.webdriver.chrome.webdriver import WebDriver  # type: ignore
+from selenium.webdriver.remote.webelement import WebElement  # type: ignore
+import selenium.common.exceptions as selex  # type: ignore
+from selenium.webdriver.common.by import By  # type: ignore
+from selenium.webdriver.support.ui import WebDriverWait  # type: ignore
+from selenium.webdriver.support import expected_conditions as EC  # type: ignore
+import yaml  # type: ignore
 
-from sitewatcher.urls import URL_MAP, TIMESTAMPS, View
+from sitewatcher.urls import View
 
 
 logger = logging.getLogger("watcher")
@@ -33,6 +35,9 @@ class SiteWatcherTest(unittest.TestCase):
         cls.gui = bool(os.environ.get("SITEWATCHER_GUI", None))
         options.headless = not cls.gui
         cls.browser = webdriver.Firefox(options=options)
+        # load view and timestamp data
+        with resource_stream('sitewatcher.resources', "views.yaml") as views_fp:
+            cls.views = yaml.load(views_fp, yaml.Loader)
 
     @classmethod
     def tearDownClass(cls):
@@ -41,8 +46,8 @@ class SiteWatcherTest(unittest.TestCase):
             cls.browser.close()
 
     def test_views(self):
-        for name, view in URL_MAP.items():
-            with self.subTest(view=name):
+        for view in self.views:
+            with self.subTest(view=view.name):
                 self.watch_view(view)
 
     def wait_for_element(self, xpath: str, timeout=10, panic=True,
@@ -58,7 +63,7 @@ class SiteWatcherTest(unittest.TestCase):
                 self.fail("Timeout waiting for timestamp to appear")
 
     def watch_view(self, view: View) -> None:
-        timestamps = TIMESTAMPS[view.name]
+        timestamps = view.timestamps
         if not timestamps:
             return  # nothing to check
         if view.login:
