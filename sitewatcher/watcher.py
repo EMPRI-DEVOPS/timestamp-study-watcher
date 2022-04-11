@@ -74,7 +74,7 @@ class SiteWatcherTest(unittest.TestCase):
         logger.debug("Loading %s ...", url)
         self.browser.get(url)
         with self.assertRaises(selex.NoSuchElementException, msg="404"):
-            self.browser.find_element_by_css_selector('img[alt~="404"]')
+            self.browser.find_element(By.CSS_SELECTOR, 'img[alt~="404"]')
         self.assertEqual(self.browser.current_url, url, "Loaded url differs")
 
         # look for each timestamp based on its xpath
@@ -137,7 +137,7 @@ def get_xpath(elem: WebElement, top="body") -> str:
     """Build basic XPath from elem up to given top element"""
     if elem.tag_name.lower() == top:
         return elem.tag_name.upper()
-    return (get_xpath(elem.find_element_by_xpath(".."), top) +
+    return (get_xpath(elem.find_element(By.XPATH, ".."), top) +
             "/" + elem.tag_name.upper())
 
 
