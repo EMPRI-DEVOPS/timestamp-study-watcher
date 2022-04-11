@@ -150,10 +150,13 @@
     multiple: true
     name: issue
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
   type: *id002
 - !VIEW
   example_params:
@@ -169,50 +172,65 @@
     multiple: false
     name: opened
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME
   - !TS
     elem_variation: []
     login: false
     multiple: false
     name: opened-stickyheader
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/RELATIVE-TIME
   - !TS
     elem_variation: []
     login: false
     multiple: false
     name: origpost
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME
   - !TS
     elem_variation: []
     login: false
     multiple: true
     name: comment
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME
   - !TS
     elem_variation: []
     login: false
     multiple: true
     name: issueaction
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME
   type: *id002
 - !VIEW
   example_params: []
@@ -236,10 +254,13 @@
     multiple: true
     name: issue
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
   type: *id002
 - !VIEW
   example_params: []
@@ -254,10 +275,13 @@
     multiple: true
     name: lastupdate
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/UL/LI/DIV/DIV/SPAN/SPAN
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/UL/LI/DIV/DIV/SPAN/SPAN
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/UL/LI/DIV/DIV/SPAN/SPAN
   type: *id002
 - !VIEW
   example_params:
@@ -273,10 +297,13 @@
     multiple: true
     name: issue
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
   type: *id002
 - !VIEW
   example_params:
@@ -310,10 +337,13 @@
     multiple: true
     name: pr
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/RELATIVE-TIME
   type: *id002
 - !VIEW
   example_params:
@@ -329,20 +359,26 @@
     multiple: false
     name: origpost
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME
   - !TS
     elem_variation: []
     login: false
     multiple: true
     name: comment
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/H3/A/RELATIVE-TIME
   - !TS
     elem_variation:
     - TIME-AGO
@@ -350,10 +386,13 @@
     multiple: true
     name: praction
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME
   - !TS
     elem_variation:
     - TIME-AGO
@@ -361,10 +400,13 @@
     multiple: true
     name: practionpush
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/A/RELATIVE-TIME
   type: *id002
 - !VIEW
   example_params:
@@ -380,10 +422,13 @@
     multiple: true
     name: commit
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/OL/LI/DIV/DIV/DIV/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/OL/LI/DIV/DIV/DIV/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/OL/LI/DIV/DIV/DIV/RELATIVE-TIME
   type: *id002
 - !VIEW
   example_params:
@@ -441,32 +486,41 @@
     multiple: true
     name: commitdropdown
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/A/DIV/SPAN/RELATIVE-TIME
+      - 2022-03-17
     trigger:
-    - /html/body/div[4]/div/main/div[2]/div/div/div[4]/div[1]/div[1]/div/div/details
+    - /html/body/div[4]/div/main/div[2]/div/div[4]/div[1]/div[1]/div/div/details
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/A/DIV/SPAN/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/A/DIV/SPAN/RELATIVE-TIME
   - !TS
     elem_variation: []
     login: false
     multiple: true
     name: commitdropdown-stickyheader
     prepare: !!python/name:sitewatcher.utils.shrink_and_scroll_down ''
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/A/DIV/SPAN/RELATIVE-TIME
+      - 2022-03-17
     trigger:
-    - /html/body/div[4]/div/main/div[2]/div/div/div[4]/div[1]/div[2]/div[2]/div/div/div/div[2]/div/details
+    - /html/body/div[4]/div/main/div[2]/div/div[4]/div[1]/div[2]/div[2]/div/div/div/div[2]/div/details
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/A/DIV/SPAN/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DETAILS-MENU/DIV/A/DIV/SPAN/RELATIVE-TIME
   - !TS
     elem_variation: []
     login: false
     multiple: false
     name: buildcompleted
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SECTION/DIV/DIV/DIV/SPAN/SPAN/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SECTION/DIV/DIV/DIV/SPAN/SPAN/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/SECTION/DIV/DIV/DIV/SPAN/SPAN/RELATIVE-TIME
   type: *id002
 - !VIEW
   example_params: []
@@ -669,10 +723,13 @@
     multiple: false
     name: created
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/RELATIVE-TIME
   type: *id002
 - !VIEW
   example_params:
@@ -688,10 +745,13 @@
     multiple: true
     name: committed
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/FORM/DIV/UL/LI/DIV/DIV/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/FORM/DIV/UL/LI/DIV/DIV/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/FORM/DIV/UL/LI/DIV/DIV/RELATIVE-TIME
   type: *id002
 - !VIEW
   example_params:
@@ -708,10 +768,13 @@
     multiple: false
     name: created
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/RELATIVE-TIME
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/RELATIVE-TIME
   type: *id002
 - !VIEW
   example_params: []
@@ -780,10 +843,13 @@
     multiple: false
     name: finished
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SECTION/DIV/DIV/DIV/SPAN/SPAN/RELATIVE-TIME
+      - 2022-03-17
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/SECTION/DIV/DIV/DIV/SPAN/SPAN/RELATIVE-TIME
+    xpath_rel: BODY/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/SECTION/DIV/DIV/DIV/SPAN/SPAN/RELATIVE-TIME
   type: *id002
 - !VIEW
   example_params: []

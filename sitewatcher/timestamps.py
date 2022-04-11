@@ -7,7 +7,7 @@ from selenium.webdriver.chrome.webdriver import WebDriver  # type: ignore
 import yaml  # type: ignore
 
 
-@dataclass(frozen=True)
+@dataclass
 class TS(yaml.YAMLObject):
     """Timestamp type located by XPath"""
     yaml_tag = "!TS"
