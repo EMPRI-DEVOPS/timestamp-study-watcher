@@ -2,15 +2,28 @@ import unittest
 from collections import defaultdict
 from typing import *
 
+from pkg_resources import resource_stream  # type: ignore
+import yaml
+
 import sitewatcher.urls as urls
 
 
+URLS: List[urls.View] = []
+
+
+def load_views() -> List[urls.View]:
+    with resource_stream('sitewatcher.resources', "views.yaml") as views_fp:
+        return yaml.load(views_fp, yaml.Loader)
+
+
+def setUpModule():
+    URLS = load_views()
 
 
 class XPathUniquenessTest(unittest.TestCase):
     """Check if two timestamps have the same xpath in a view."""
     def test_xpath_uniqueness(self) -> None:
-        for view in urls.URLS:
+        for view in URLS:
             with self.subTest(view=view.name):
                 self._find_view_xpath_duplicates(view)
 
@@ -24,18 +37,10 @@ class XPathUniquenessTest(unittest.TestCase):
                     self.fail(msg=" ".join(occurances))
 
 
-class CompletenessTest(unittest.TestCase):
-    def test_completeness(self) -> None:
-        self.assertCountEqual(
-            urls.URL_MAP.keys(),
-            urls.TIMESTAMPS.keys()
-        )
-
-
 class PatternMatchTest(unittest.TestCase):
     """Check if the view patterns match the view examples."""
     def test_regex_match(self) -> None:
-        for view in urls.URLS:
+        for view in URLS:
             match = view.pattern.search(view.example_url(suffix_only=True))
             msg = f"Pattern mismatch for {view.name}"
             with self.subTest(view=view.name):
