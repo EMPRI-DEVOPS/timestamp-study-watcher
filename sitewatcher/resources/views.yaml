@@ -589,6 +589,17 @@
     trigger: []
     until: 2021-10-26
     xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/UL/LI/RELATIVE-TIME
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: assets
+    prepare: null
+    previous: []
+    trigger: []
+    since: 2022-05-20
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DIV/DIV/UL/LI/DIV/SPAN/LOCAL-TIME
   type: *id002
 - !VIEW
   example_params:
@@ -614,6 +625,17 @@
     trigger: []
     until: null
     xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/LOCAL-TIME
+  - !TS
+    elem_variation: []
+    login: false
+    multiple: true
+    name: assets
+    prepare: null
+    previous: []
+    trigger: []
+    since: 2022-05-20
+    until: null
+    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DETAILS/DIV/DIV/UL/LI/DIV/SPAN/LOCAL-TIME
   type: *id002
 - !VIEW
   example_params: []
