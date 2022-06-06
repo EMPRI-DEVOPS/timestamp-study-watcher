@@ -852,10 +852,13 @@
     multiple: false
     name: triggered
     prepare: null
-    previous: []
+    previous:
+    - !!python/tuple
+      - BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/TIME-AGO
+      - 2022-06-02
     trigger: []
     until: null
-    xpath_rel: BODY/DIV/DIV/MAIN/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/TIME-AGO
+    xpath_rel: BODY/DIV/DIV/MAIN/RUN-SUMMARY/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/DIV/SPAN/TIME-AGO
   type: *id002
 - !VIEW
   example_params:
