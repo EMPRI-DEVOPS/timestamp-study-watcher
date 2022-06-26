@@ -75,7 +75,11 @@ class SiteWatcherTest(unittest.TestCase):
         self.browser.get(url)
         with self.assertRaises(selex.NoSuchElementException, msg="404"):
             self.browser.find_element(By.CSS_SELECTOR, 'img[alt~="404"]')
-        self.assertEqual(self.browser.current_url, url, "Loaded url differs")
+        cur_url = self.browser.current_url
+        if cur_url != url:
+            logger.warning("Loaded url differs (%s -> %s)", url, cur_url)
+            base_url = cur_url.split("?")[0]
+            self.assertEqual(base_url, url, "Loaded url differs significantly")
 
         # look for each timestamp based on its xpath
         for tsp in timestamps:
